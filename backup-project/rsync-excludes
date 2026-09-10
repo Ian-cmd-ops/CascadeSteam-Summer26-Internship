@@ -1,0 +1,49 @@
+# rsync exclude list. Deploys to /home/ian/.rsync-excludes (see laptop-backup.sh EXCLUDES).
+# Paths are relative to SRC (/home/ian/). Leading slash anchors to SRC root.
+# Goal: back up what a wipe destroys, skip what the internet re-provides.
+
+# --- Re-downloadable toolchains and package caches ---
+/.arduino15/
+/.rustup/
+/.cargo/registry/
+/.npm/
+/.cache/
+/.local/share/Trash/
+
+# --- App payloads that reinstall themselves ---
+/snap/
+/.steam/
+/.var/app/*/cache/
+
+# --- Large re-fetchable downloads ---
+# Cut installer images. Keep the rest of Downloads.
+/Downloads/*.iso
+
+# --- Generic caches anywhere in the tree ---
+**/Cache/
+**/CachedData/
+**/Code Cache/
+**/GPUCache/
+**/.cache/
+
+# --- Editor and OS junk ---
+*.tmp
+*~
+.DS_Store
+
+# --- Unreadable by the backupsrc rrsync session (added 2026-09-06) ---
+# These come back "Permission denied (13)" and force rsync exit 23. None of
+# them are worth restoring: browser-managed state, IPC sockets, key material.
+/.ssh/
+/.config/ibus/
+/.var/app/*/config/ibus/
+/.local/share/nano/
+/.local/share/nautilus/scripts/
+/.local/share/Trash/expunged/
+/.config/BraveSoftware/Brave-Browser/Local State
+/.config/BraveSoftware/Brave-Browser/CertificateRevocation/
+/.config/BraveSoftware/Brave-Browser/PKIMetadata/
+/.config/BraveSoftware/Brave-Browser/Crowd Deny/
+/.config/BraveSoftware/Brave-Browser/Default/blob_storage/
+# Brave component/extension version dirs: <32-char id>/<n.n.n>/
+/.config/BraveSoftware/Brave-Browser/*/[0-9]*.[0-9]*/

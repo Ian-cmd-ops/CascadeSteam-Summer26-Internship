@@ -1,0 +1,12 @@
+[Unit]
+Description=pull laptop /home into hardlink snapshots (change-gated)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=ian
+ExecStart=/home/ian/rsync-snapshot/laptop-backup.sh
+SuccessExitStatus=0 24
+Nice=10
+IOSchedulingClass=idle
